@@ -17,6 +17,7 @@ export const RecipeCard = ({
    const isFavorite =user ?recipe.favorites.includes(user.id): false
   
   return (
+    
     <div 
       key={recipe.id} 
       className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
