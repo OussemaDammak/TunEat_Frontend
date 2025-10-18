@@ -44,7 +44,7 @@ export const Navbar = (
                       Hello, {user.username}!
                     </span>
                     <DropdownMenu >
-                      <DropdownMenuTrigger>
+                      <DropdownMenuTrigger asChild>
                         <Button variant={'ghost'}>
                           <Avatar>
                              <AvatarImage src={user.profile_picture} alt='User profile picture'/>
