@@ -26,7 +26,7 @@ export const Navbar = (
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <ChefHat className="text-orange-500" size={32} />
-              <h1 className="text-2xl font-bold text-gray-800">RecipeShare</h1>
+              <h1 className="text-2xl font-bold text-gray-800">TunEat</h1>
             </div>
 
             <div className="flex items-center space-x-4">

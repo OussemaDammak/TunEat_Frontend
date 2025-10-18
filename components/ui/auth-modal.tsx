@@ -62,34 +62,57 @@ export const AuthModal = ({
   };
 
   const handleRegister = async () => {
-    if (registerForm.password !== registerForm.password2) {
-      alert("Passwords don't match!");
-      return;
-    }
+  if (registerForm.password !== registerForm.password2) {
+    alert("Passwords don't match!");
+    return;
+  }
 
-    try {
-      setCreatingUser(true);
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register/`, registerForm);
-      console.log("Registration response:", res.data);
-      if (res.status === 201) {
-        alert("Registration successful, you can now log in!");
-        setRegisterForm({
-          username: "",
-          email: "",
-          password: "",
-          password2: "",
-        });
+  try {
+    setCreatingUser(true);
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register/`,
+      registerForm
+    );
+    console.log("Registration response:", res.data);
+
+    if (res.status === 201) {
+      // Auto-login after successful registration
+      const loginRes = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login/`,
+        {
+          email: res.data.user.email,
+          password: registerForm.password,
+        }
+      );
+
+      if (loginRes.data.access) {
+        localStorage.setItem(ACCESS_TOKEN, loginRes.data.access);
+        localStorage.setItem(REFRESH_TOKEN, loginRes.data.refresh);
+
         setShowAuth(false);
         setShowUserProfile(true);
+        window.location.reload();
       } else {
-        console.error("Registration failed");
+        console.error("Auto-login failed");
       }
-    } catch (error) {
-      console.error("Error during registration:", error);
-    } finally{
-     setCreatingUser(false);
+
+      // Reset the form
+      setRegisterForm({
+        username: "",
+        email: "",
+        password: "",
+        password2: "",
+      });
+    } else {
+      console.error("Registration failed");
     }
-  };
+  } catch (error) {
+    console.error("Error during registration:", error);
+  } finally {
+    setCreatingUser(false);
+  }
+};
+
 
 
   return (
