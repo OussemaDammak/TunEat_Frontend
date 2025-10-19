@@ -183,10 +183,10 @@ const MyRecipesPage = () => {
                 key={recipe.id}
                 className="bg-white overflow-hidden shadow rounded-lg"
               >
-                {recipe.featured_image && (
+                {recipe.image_url && (
                   <div className="h-48 overflow-hidden">
                     <img
-                      src={recipe.featured_image}
+                      src={recipe.image_url}
                       alt={recipe.title}
                       className="w-full h-full object-cover"
                     />

@@ -39,6 +39,7 @@ type RecipeType = {
   favorite_count: number;
   featured_image: string;
   created_at: string;
+  image_url:string;
 };
 
 type CategoryType = {

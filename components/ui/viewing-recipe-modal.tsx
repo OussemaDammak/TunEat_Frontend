@@ -32,10 +32,10 @@ export const ViewingRecipeModal = ({
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden">
         {/* Header */}
         <div className="relative">
-          {viewingRecipe.featured_image ? (
+          {viewingRecipe.image_url ? (
             <div className="relative h-64 overflow-hidden">
               <img 
-                src={viewingRecipe.featured_image} 
+                src={viewingRecipe.image_url} 
                 alt={viewingRecipe.title}
                 className="w-full h-full object-cover"
               />
