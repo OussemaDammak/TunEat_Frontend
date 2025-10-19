@@ -25,9 +25,9 @@ export const RecipeCard = ({
     >
       {/* Image Section */}
       <div className="relative">
-        {recipe.featured_image ? (
+        {recipe.image_url ? (
           <img 
-            src={recipe.featured_image} 
+            src={recipe.image_url} 
             alt={recipe.title}
             className="w-full h-48 object-cover"
           />
