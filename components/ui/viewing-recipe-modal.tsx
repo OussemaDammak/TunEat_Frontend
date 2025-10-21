@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { Clock, Star, Heart, User, Send, MessageCircle, X, ChefHat, Users } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -8,6 +9,32 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import axios from 'axios';
 import { ACCESS_TOKEN } from '@/constants';
+import { loadStripe, Stripe } from "@stripe/stripe-js";
+const stripePromise: Promise<Stripe | null> = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
+// Function defined first
+const handleSupport = async () => {
+  try {
+    const res = await fetch("http://localhost:8000/api/create-checkout-session/", {
+      method: "POST",
+    });
+    const { url } = await res.json();
+
+    if (!url) {
+      alert("Failed to create checkout session");
+      return;
+    }
+
+    window.location.href = url; // redirect user to Stripe checkout
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong.");
+  }
+};
+
+
 
 export const ViewingRecipeModal = ({
     viewingRecipe,
@@ -244,6 +271,14 @@ export const ViewingRecipeModal = ({
                   day: 'numeric'
                 })}
               </div>
+              <Button
+                variant="outline"
+                className="border-red-200 text-blue-600 hover:bg-red-50 hover:text-red-700"
+                onClick={handleSupport}
+               
+              >
+                Support Chef
+              </Button>
               <Button
                 variant="outline"
                 className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
