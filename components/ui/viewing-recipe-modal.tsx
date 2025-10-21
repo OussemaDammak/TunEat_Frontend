@@ -17,7 +17,7 @@ const stripePromise: Promise<Stripe | null> = loadStripe(
 // Function defined first
 const handleSupport = async () => {
   try {
-    const res = await fetch("http://localhost:8000/api/create-checkout-session/", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/create-checkout-session/`, {
       method: "POST",
     });
     const { url } = await res.json();
